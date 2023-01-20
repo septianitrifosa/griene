@@ -44,9 +44,9 @@ WHERE job_id IN ('IT_PROG')
 AND first_name LIKE 'D%';
 
 --9.	Daftar bawahan dari pegawai no 103 dan masuk kerja setelah tahun 1998
-SELECT first_name,employee_id
+SELECT first_name,manager_id
 FROM hr.employees
-WHERE employee_id < 103 AND hire_date > '31-JAN-98';
+WHERE manager_id < 103 AND hire_date > '31-JAN-98';
 
 --10.	Daftar pegawai yang gajinya < 3000 dan yang gajinya >8000
 SELECT first_name, salary
