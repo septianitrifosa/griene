@@ -30,3 +30,26 @@ From hr.employees e JOIN hr.departments d
 ON (E.department_id= D.department_id)
 JOIN hr.Locations L
 On (D.location_id = L.location_id);
+
+-- SELF JOIN, join ke dirinya sendiri untuk membuat tabel baru, dengan cara membuat alias
+--tampilkan daftar pegawai yang memiliki manager
+SELECT e.first_name, e.last_name,
+       m.first_name, m.last_name
+FROM hr.employees e JOIN hr.employees m
+ON(e.manager_id = m.employee_id);
+
+--tampilkan nama belakang, department id departement name
+SELECT last_name, e.department_id, department_name
+FROM hr.employees e LEFT OUTER JOIN hr.departments d
+ON (e.department_id = d.department_id)
+ORDER BY department_id;
+
+SELECT last_name, e.department_id, department_name
+FROM hr.employees e RIGHT OUTER JOIN hr.departments d
+ON (e.department_id = d.department_id)
+ORDER BY department_id;
+
+SELECT last_name, d.department_id, department_name
+FROM hr.employees e full OUTER JOIN hr.departments d
+ON (e.department_id = d.department_id)
+ORDER BY department_id;
