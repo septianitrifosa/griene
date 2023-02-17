@@ -1,0 +1,76 @@
+--1. Tampilkan total gaji pegawai tiap pekerjaan
+select j.job_title, sum(salary)
+from hr.employees e
+join hr.jobs j on (e.job_id = j.job_id)
+group by job_title;
+
+--2. Tampilkan rata-rata gaji ditiap department
+select d.department_name, round(avg(salary))
+from hr.employees e
+join hr.departments d on (e.department_id = d.department_id)
+group by department_name
+order by department_name asc;
+
+--3. Tampilkan jumlah pegawai di tiap pekerjaan
+select j.job_title, count(employee_id) as JUMLAH_PEGAWAI
+from hr.employees e
+join hr.jobs j on (e.job_id = j.job_id)
+group by job_title
+order by job_title;
+
+--4. Tampilkan jumlah pegawai tertinggi berdasarkan pekerjaannya
+SELECT job_id, max(JUMLAH_PEGAWAI) AS JUMLAH_MAX
+FROM (SELECT job_id, count(employee_id) as JUMLAH_PEGAWAI 
+FROM hr.employees 
+GROUP BY job_id)
+GROUP BY job_id
+ORDER BY jumlah_max desc;
+
+--5. tampilkan nama negara yang memiliki jumlah pegawai tertinggi
+SELECT country_name, max(JUMLAH_PEGAWAI) AS JUMLAH_MAX
+FROM (SELECT c.country_name, count(*) as JUMLAH_PEGAWAI 
+FROM hr.employees e JOIN hr.departments d ON (d.department_id = e.department_id)
+JOIN hr.locations l ON (d.location_id = l.location_id)
+JOIN hr.countries c ON (l.country_id = c.country_id)
+GROUP BY c.country_name)
+GROUP BY country_name
+ORDER BY jumlah_max desc;
+
+
+--6. Tampilkan jumlah pegawai yang memiliki lama kerja paling lama (dalam tahun) terhitung dari Hire date hingga sekarang.
+SELECT count(employee_id) as jumlah_pegawai, ROUND((SYSDATE - hire_date)/365) 
+FROM hr.employees
+WHERE ROUND((SYSDATE - hire_date)/365) = (select MAX(ROUND((SYSDATE - hire_date)/365)) from hr.employees)
+GROUP BY ROUND((SYSDATE - hire_date)/365);
+
+--7. Tampilkan data pegawai yang selisih gaji maksimum dan mininumnya diantara 4000 sampai 7000
+SELECT *
+FROM hr.employees e
+JOIN hr.jobs j ON (e.job_id = j.job_id)
+WHERE (max_salary-min_salary) between 4000 and 7000;
+
+
+--8. Tampilkan rata-rata gaji pegawai yang tinggal di california
+SELECT ROUND(AVG(salary))
+FROM hr.employees e 
+JOIN hr.departments d ON (d.department_id = e.department_id)
+JOIN hr.locations l ON (d.location_id = l.location_id)
+JOIN hr.countries c ON (l.country_id = c.country_id)
+WHERE STATE_PROVINCE = 'California';
+
+--9. tampilkan jumlah pegawai yang memiliki region sama
+SELECT count(*) as Jumlah_Pegawai, region_id
+FROM hr.employees e 
+JOIN hr.departments d ON (d.department_id = e.department_id)
+JOIN hr.locations l ON (d.location_id = l.location_id)
+JOIN hr.countries c ON (l.country_id = c.country_id)
+GROUP BY region_id;
+
+--10. susunlah kalimat dengan format seperti contoh:
+--	"Steven King bekerja sebagai President dari tanggal 17-Juni-2003 yang beralamatkan di 2004 Charade Rd, United State of America"
+SELECT first_name||' '||last_name||'Bekerja Sebagai '||job_title||'Dari Tanggal '||hire_date||' yang beralamatkan '||street_address||','||country_name as "KALIMAT"
+From hr.employees e
+JOIN hr.jobs j ON (e.job_id = j.job_id)
+JOIN hr.departments d ON (d.department_id = e.department_id)
+JOIN hr.locations l ON (d.location_id = l.location_id)
+JOIN hr.countries c ON (l.country_id = c.country_id);
