@@ -1,0 +1,78 @@
+--Nama : septiani trifosa
+--NPM	: 2020110007
+
+--1. Tampilkan nama pegawai, pekerjaan dan tanggal mulai pegawai yang mulai bekerja 
+--antara 1 February 1981 sampai 1 Mei 1989. Urutkan berdasarkan tgl mulai kerja.
+select first_name, e.job_id, hire_date
+from hr.employees e 
+join hr.jobs j on (e.job_id = j.job_id)
+where hire_date between '01-FEB-81' and '01-MAY-89';
+
+--2. Tampilkan nama pegawai dan hitunglah berapa tahun pegawai tersebut 
+--telah bekerja hingga saat ini yang di beri judul "Lama Kerja(tahun)" kemudian urutkan bedasarkan lama kerja.
+select first_name, round((SYSDATE-hire_date)/365) as "LAMA_KERJA(TAHUN)"
+from hr.employees
+order by round((SYSDATE-hire_date)/365);
+
+--3. Tampilkan nama pegawai (nama depan huruf kecil semua sedangkan nama belakang 
+--hanya huruf pertamanya besar) sebagai nama, pemnambahan gaji sebesar 20% sebagai Bonus kemudian di urutkan berdasarkan bonus
+select lower(first_name), initcap(last_name), salary, round (salary * 1.200) 
+from hr.employees
+order by round (salary * 1.200);
+
+--4. Tampilkan nama pegawai, hire date, serta minggu keberapa mulai bekerja dalam tahun tersebut diurutkan berdasarkan minggu terkecil
+SELECT first_name, hire_date, round(hire_date-)
+
+SELECT last_name, TO_CHAR(hire_date, 'DD-Mon-YYYY')
+FROM hr.employees
+WHERE hire_date < TO_DATE('01-Jan-23','DD-Mon-RR');
+--belommm
+
+--5. Tampilkan nama belakang karyawan yang memiliki urutan abjad pertama dan yang terakhir.
+select last_name
+from hr.employees
+order by last_name asc;
+
+--6. Tampilkan job id dan total salary bulanan untuk setiap job id tersebut, tidak termasuk vice president. Urutkan hasilnya berdasarkan jumlah salary bulanan.
+SELECT job_id, sum(salary)
+FROM hr.employees
+WHERE job_id NOT IN ('AD_PRES')
+GROUP BY job_id
+ORDER BY sum(salary);
+
+--7. Tampilkan job id, departement id, dan selisih gaji yang lebih dari 5000
+SELECT e.job_id, e.department_id, (max_salary-min_salary)
+FROM hr.employees e
+JOIN hr.jobs j ON (e.job_id = j.job_id)
+JOIn hr.departments d ON (e.department_id = d.department_id)
+WHERE (max_salary-min_salary) > 5000
+ORDER BY (max_salary-min_salary);
+
+
+--8. Tampilkan jumlah pegawai yang memiliki 2 huruf depan email yang sama dan di urutkan berdasarkan abjad
+select SUBSTR(email,1,2), count(employee_id) as JUMLAH_PEGAWAI
+from hr.employees e
+group by SUBSTR(email,1,2)
+having count(employee_id) > 1 
+order by SUBSTR(email,1,2);
+
+--9. Tampilkan nama kota,dan nama regionnya dari pegawai yang masuk pada minggu ke 30 (dalam 1 tahun)
+select e.employee_id, l.city, r.region_name, TO_CHAR(hire_date, 'YYYY')
+from hr.employees e 
+JOIN hr.departments d ON (d.department_id = e.department_id)
+JOIN hr.locations l ON (d.location_id = l.location_id)
+join hr.countries c on (l.country_id = c.country_id)
+join hr.regions r on (c.region_id = r.region_id);
+
+--10. Tampilkan jumlah dari provinsi yang merupakan negara "United Kingdom"
+select c.country_name, count(l.state_province) as JUMLAH_PROVINSI
+from hr.locations l
+join hr.countries c on (l.country_id = c.country_id)
+group by country_name
+having country_name = 'United Kingdom'
+order by country_name;
+
+
+
+
+
