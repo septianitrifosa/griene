@@ -15,6 +15,12 @@ SELECT first_name, last_name, salary, commission_pct,
 FROM hr.employees;
 
 --4. Tampilkan nama pegawai, pekerjaan dan tanggal mulai pegawai yang mulai bekerja setelah tanggal 1 February 2003.
+select first_name || ' ' || last_name as Nama_pegawai, job_title, hire_date
+  from hr.employees e 
+join hr.jobs j on (e.job_id = j.job_id)
+  where hire_date > '01-FEB-03'
+  order by hire_date;
+
 --5. Urutkan berdasarkan tgl mulai kerja.
 --6. Tampilkan nama pegawai dan hitunglah berapa tahun pegawai tersebut telah bekerja hingga saat ini yang di beri judul "Lama Kerja(tahun)" kemudian urutkan bedasarkan lama kerja.
 --7. Tampilkan nama lengkap pegawai dan email pegawai dengan mengganti huruf ke 3 pada email dengan '@'
