@@ -8,7 +8,12 @@ FROM hr.employees E join hr.jobs J
 ON (E.job_id = J.job_id)
 WHERE job_title LIKE '%Sales%'
   AND salary >3000;
+
 --3. Tampilkan nama depan, nama belakang pegawai, gaji, dan gaji setelah di tambahkan dengan komisi.
+SELECT first_name, last_name, salary, commission_pct, 
+  NVL2(commission_pct,salary + (salary* commission_pct), salary) total_salary
+FROM hr.employees;
+
 --4. Tampilkan nama pegawai, pekerjaan dan tanggal mulai pegawai yang mulai bekerja setelah tanggal 1 February 2003.
 --5. Urutkan berdasarkan tgl mulai kerja.
 --6. Tampilkan nama pegawai dan hitunglah berapa tahun pegawai tersebut telah bekerja hingga saat ini yang di beri judul "Lama Kerja(tahun)" kemudian urutkan bedasarkan lama kerja.
