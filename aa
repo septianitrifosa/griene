@@ -35,8 +35,14 @@ select  lower(first_name) || ' ' || initcap(last_name) as Nama, round (salary* 2
   from hr.employees
   order by round (salary* 20/100);
 
---9. Tampilkan nama belakang karyawan yang memiliki urutan abjad pertama dan yang terakhir.
---10. Tampilkan job id, departement id, dan selisih gaji yang lebih dari 5000
+--8. Tampilkan nama belakang karyawan yang memiliki urutan abjad pertama dan yang terakhir.
+
+--9. Tampilkan job id, departement id, dan selisih gaji yang lebih dari 5000
+select j.job_id, d.department_id, (max_salary - min_salary)
+From hr.employees e
+JOIN hr.jobs j ON (e.job_id = j.job_id)
+JOIN hr.departments d ON (d.department_id = e.department_id)
+  WHERE (max_salary-min_salary) > 5000;
 --11. Tampilkan jumlah pegawai yang memiliki 2 huruf depan email yang sama dan di urutkan berdasarkan abjad
 Tampilkan jumlah dari provinsi yang merupakan negara "United States of America".
 Tampilkan nama lengkap pegawai yang tinggal di kota Oxford
