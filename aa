@@ -43,6 +43,13 @@ From hr.employees e
 JOIN hr.jobs j ON (e.job_id = j.job_id)
 JOIN hr.departments d ON (d.department_id = e.department_id)
   WHERE (max_salary-min_salary) > 5000;
---11. Tampilkan jumlah pegawai yang memiliki 2 huruf depan email yang sama dan di urutkan berdasarkan abjad
+
+--10. Tampilkan jumlah pegawai yang memiliki 2 huruf depan email yang sama dan di urutkan berdasarkan abjad
+select SUBSTR(email,1,2) as Email, count(employee_id) as JUMLAH_PEGAWAI
+from hr.employees e
+group by SUBSTR(email,1,2)
+having count(employee_id) > 1 
+order by SUBSTR(email,1,2);
+
 Tampilkan jumlah dari provinsi yang merupakan negara "United States of America".
 Tampilkan nama lengkap pegawai yang tinggal di kota Oxford
