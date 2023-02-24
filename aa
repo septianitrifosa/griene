@@ -1,0 +1,21 @@
+--1. Tampilkan seluruh data Pegawai
+select * from hr.employees;
+select * from hr.jobs;
+
+--2. Tampilkan Data pegawai yang pekerjaannya sebagai sales dan gajinya di atas 3000.
+SELECT *
+FROM hr.employees E join hr.jobs J
+ON (E.job_id = J.job_id)
+WHERE job_title LIKE '%Sales%'
+  AND salary >3000;
+--3. Tampilkan nama depan, nama belakang pegawai, gaji, dan gaji setelah di tambahkan dengan komisi.
+--4. Tampilkan nama pegawai, pekerjaan dan tanggal mulai pegawai yang mulai bekerja setelah tanggal 1 February 2003.
+--5. Urutkan berdasarkan tgl mulai kerja.
+--6. Tampilkan nama pegawai dan hitunglah berapa tahun pegawai tersebut telah bekerja hingga saat ini yang di beri judul "Lama Kerja(tahun)" kemudian urutkan bedasarkan lama kerja.
+--7. Tampilkan nama lengkap pegawai dan email pegawai dengan mengganti huruf ke 3 pada email dengan '@'
+--8. Tampilkan nama pegawai (nama depan huruf kecil semua sedangkan nama belakang hanya huruf pertamanya besar) sebagai nama, pemnambahan gaji sebesar 20% sebagai Bonus kemudian di urutkan berdasarkan bonus
+--9. Tampilkan nama belakang karyawan yang memiliki urutan abjad pertama dan yang terakhir.
+--10. Tampilkan job id, departement id, dan selisih gaji yang lebih dari 5000
+--11. Tampilkan jumlah pegawai yang memiliki 2 huruf depan email yang sama dan di urutkan berdasarkan abjad
+Tampilkan jumlah dari provinsi yang merupakan negara "United States of America".
+Tampilkan nama lengkap pegawai yang tinggal di kota Oxford
