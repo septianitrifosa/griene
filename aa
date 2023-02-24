@@ -51,5 +51,12 @@ group by SUBSTR(email,1,2)
 having count(employee_id) > 1 
 order by SUBSTR(email,1,2);
 
-Tampilkan jumlah dari provinsi yang merupakan negara "United States of America".
+--11. Tampilkan jumlah dari provinsi yang merupakan negara "United States of America".
+select c.country_name, count(l.state_province) as JUMLAH_PROVINSI
+from hr.locations l
+join hr.countries c on (l.country_id = c.country_id)
+group by country_name
+having country_name = 'United States of America'
+order by country_name;
+  
 Tampilkan nama lengkap pegawai yang tinggal di kota Oxford
