@@ -183,4 +183,29 @@ UPDATE Customer SET CustFirstName ='Sherry'
 WHERE Custno = 'C0954327';
 
 UPDATE Customer SET CustBal = 100
-WHERE CustFirstName = 'Bob';;
+WHERE CustFirstName = 'Bob';
+
+COMMIT
+
+INSERT INTO Customer (
+    Custno, 
+    CustFirstname)
+VALUES (
+    'C9999',
+	'Septiani');
+SELECT * FROM customer;
+
+rollback		--masih ada datanya
+
+COMMIT
+
+SELECT * FROM Customer;
+
+UPDATE Customer SET Custbal = custbal+100;
+exec SAVEPOINT naik100;
+
+UPDATE Customer SET Custbal = custbal+100;
+exec SAVEPOINT naik200;
+
+UPDATE Customer SET Custbal = custbal+100;
+ROLLBACK TO SAVEPOINT naik200;
